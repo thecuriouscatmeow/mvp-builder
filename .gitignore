@@ -3,3 +3,5 @@ node_modules/
 .worktrees/
 *.log
 .wp-env/
+tmp/
+src/wp-content/themes/twenty*/
