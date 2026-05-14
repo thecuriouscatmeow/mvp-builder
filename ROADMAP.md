@@ -12,7 +12,7 @@
 - [ ] 1.4 Stages 0-2 (intake → sitemap → wireframe)
 - [ ] 1.5 Stages 3-5 (content → design → image prompts)
 - [ ] 1.6 Stages 6-7 (validate → finalize)
-- [ ] 1.7 Synthetic end-to-end run
+- [ ] 1.7 Synthetic end-to-end run — DEFERRED to fresh conversation (cost-gated)
 
 ## Phase 2 — Reviewer + Token Discipline
 - [ ] 2.1 Reviewer tuning
