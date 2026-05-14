@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Broken Wireframe</title>
+</head>
+<body>
+  <!-- CRITICAL: Multiple H1 elements -->
+  <h1>Main Title</h1>
+  <h1>Duplicate H1</h1>
+
+  <!-- CRITICAL: Broken image src -->
+  <img src="" alt="">
+
+  <!-- CRITICAL: Undefined render -->
+  <p>undefined</p>
+
+  <!-- CRITICAL: Missing nav element (would break mobile nav requirement) -->
+  <main>
+    <section>
+      <h2>Section without nav</h2>
+      <p>Content here.</p>
+    </section>
+  </main>
+</body>
+</html>
