@@ -166,8 +166,8 @@ setup_wp_env_config() {
   echo "Writing .wp-env.json..."
   cat > "$config_file" << 'EOF'
 {
-  "core": "WordPress/WordPress#trunk",
   "phpVersion": "8.2",
+  "testsEnvironment": false,
   "config": {
     "WP_DEBUG": true,
     "WP_DEBUG_LOG": true,
@@ -247,13 +247,7 @@ do_install() {
   echo "========================================"
   echo ""
 
-  # Check docker daemon first
-  if ! docker info >/dev/null 2>&1; then
-    red "Docker daemon not running. Open Docker Desktop and re-run."
-    exit 1
-  fi
-
-  # Install tools
+  # Install tools (does not require Docker)
   install_via_brew "bats" "bats-core"
   install_via_brew "wp" "wp-cli"
   install_via_npm "@wordpress/env" "wp-env"
@@ -271,6 +265,13 @@ do_install() {
   setup_theme_dirs
   setup_tmp_dir
   download_theme_data
+
+  # Docker is only required for wp-env runtime
+  if ! docker info >/dev/null 2>&1; then
+    yellow "Docker daemon not running — tools installed but skipping wp-env start."
+    yellow "Open Docker Desktop and re-run \`$0\` (no --yes needed; idempotent)."
+    return 0
+  fi
 
   # Reset environment if requested
   if [ "$RESET_ENV" = true ]; then
