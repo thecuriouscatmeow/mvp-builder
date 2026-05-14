@@ -55,6 +55,26 @@ if [[ "${CLAUDE_DISPATCH_DRYRUN:-}" == "1" ]]; then
     page_slug=$(awk -F= '/^PAGE_SLUG=/{print $2}' "$prompt_file")
     bash "$fake_stage2" "$project_dir" "$page_slug" >> "$log_file" 2>> "$err_file" &
     dispatch_pid=$!
+  elif [[ "${STAGE3_FAKE:-}" == "1" ]]; then
+    # Stage 3 fake worker: content-worker
+    fake_stage3="${log_dir}/../../../scripts/test-fake-stage3-worker.sh"
+    if [[ ! -f "$fake_stage3" ]]; then
+      fake_stage3="$HOME/mvp-builder/scripts/test-fake-stage3-worker.sh"
+    fi
+    project_dir=$(awk -F= '/^PROJECT_DIR=/{print $2}' "$prompt_file")
+    page_slug=$(awk -F= '/^PAGE_SLUG=/{print $2}' "$prompt_file")
+    bash "$fake_stage3" "$project_dir" "$page_slug" >> "$log_file" 2>> "$err_file" &
+    dispatch_pid=$!
+  elif [[ "${STAGE4_FAKE:-}" == "1" ]]; then
+    # Stage 4 fake worker: design-apply worker
+    fake_stage4="${log_dir}/../../../scripts/test-fake-stage4-worker.sh"
+    if [[ ! -f "$fake_stage4" ]]; then
+      fake_stage4="$HOME/mvp-builder/scripts/test-fake-stage4-worker.sh"
+    fi
+    project_dir=$(awk -F= '/^PROJECT_DIR=/{print $2}' "$prompt_file")
+    page_slug=$(awk -F= '/^PAGE_SLUG=/{print $2}' "$prompt_file")
+    bash "$fake_stage4" "$project_dir" "$page_slug" >> "$log_file" 2>> "$err_file" &
+    dispatch_pid=$!
   else
     # Generic fake worker for other stages
     fake_worker_script="${log_dir}/../scripts/test-fake-worker.sh"
