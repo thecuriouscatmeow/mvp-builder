@@ -11,6 +11,9 @@ Sonnet/Opus only for: brand-voice, design strategy, image-prompt synthesis, plan
 ## Orchestration
 Single long-running orchestrator (Sonnet). Workers are stateless Haiku, dispatched headless via `claude -p`. Disk is memory; agents read on entry and write on exit.
 
+## Invariant: zero external API keys
+Nothing in this system may require an API key, secret, or paid third-party credential to run. Everything is a Claude Code skill, agent, MCP integration, or local CLI (`wp-cli`, `wp-env`, `gh`, `git`, `node`, `php`, `composer`). Headless workers use `claude -p` which inherits the user's Claude Code session — no separate Anthropic API key. Image generation stays manual via the user's Antigravity workflow. If a feature seems to need a key, redesign it as a skill or drop it.
+
 ## saahilbasak
 
 ### Session Start
