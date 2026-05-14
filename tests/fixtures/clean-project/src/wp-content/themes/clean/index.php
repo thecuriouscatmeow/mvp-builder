@@ -1,0 +1,2 @@
+<?php
+// Clean theme index
